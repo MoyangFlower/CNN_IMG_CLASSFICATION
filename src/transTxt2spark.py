@@ -91,10 +91,10 @@ if __name__ == '__main__':
 
     filter_end = [".txt"]  # 设置过滤后的文件类型 当然可以设置多个类型
 
-    # QZ_411_DYU_01BAK，
+    # QZ_411_DYU_01BAKQZ_411_DYU_01BAK,QZ_911_DYS_01BAK,QZ_913_DYS_01BAK
 
-    old_list = "D:\\Documents\\OracleData\\QZ_431_DYU_01BAK"
-    new_list = "D:\\Documents\\OracleData\\transedTxt431\\"
+    old_list = "D:\\Documents\\OracleData\\QZ_913_DYS_01BAK"
+    new_list = "D:\\Documents\\OracleData\\transedTxt913\\"
 
     progressbar = Index()
     # 已读取文件数，为进度条
