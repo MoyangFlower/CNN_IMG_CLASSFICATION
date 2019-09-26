@@ -93,8 +93,8 @@ if __name__ == '__main__':
 
     # QZ_411_DYU_01BAKQZ_411_DYU_01BAK,QZ_911_DYS_01BAK,QZ_913_DYS_01BAK
 
-    old_list = "D:\\Documents\\OracleData\\QZ_913_DYS_01BAK"
-    new_list = "D:\\Documents\\OracleData\\transedTxt913\\"
+    old_list = "D:\\Documents\\OracleData\\QZ_CP_312_01_RAWMIN"
+    new_list = "D:\\Documents\\OracleData\\transedToHbase\\transedTxt312\\"
 
     progressbar = Index()
     # 已读取文件数，为进度条

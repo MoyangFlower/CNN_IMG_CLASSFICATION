@@ -4,6 +4,8 @@ import sys
 import numpy as np
 from PIL import Image
 import collections
+import matplotlib.pyplot as plt
+from IPython.core.pylabtools import figsize
 
 
 def pHash(imgfile, size_height):
@@ -84,32 +86,68 @@ def __difference(image, size_height):
     return difference
 
 
-size_height = 32
-pHASH1 = pHash('D:\\Github\\PreprocessedData\\data\\test01.png', size_height)
-pHASH2 = pHash('D:\\Github\\PreprocessedData\\data\\test02.png', size_height)
-pHASH3 = pHash('D:\\Github\\PreprocessedData\\data\\test03.png', size_height)
-pHASH4 = pHash('D:\\Github\\PreprocessedData\\data\\_2000_sampled_12_6.png', size_height)
+size_height_arr = [32, 128, 256, 512, 1024]
+size_W = 12
+size_H = 4
+img_path = "D:\\Github\\PreprocessedData\\paper_img_1\\"
+save_img_path = "D:\\Github\\PreprocessedData\\paper_img_1\\distance.png"
+txt_path = "D:\\Github\\PreprocessedData\\down-sampling data\\3414.txt"
+txt_name = txt_path.split("\\")[-1].replace(".txt", "")
+plt.figure(figsize(size_W, size_H))  # 按照指定比例生成图
+y_value = [[] for _ in range(5)]
 
-dHASH1 = dHash('D:\\Github\\PreprocessedData\\data\\test01.png', size_height)
-dHASH2 = dHash('D:\\Github\\PreprocessedData\\data\\test02.png', size_height)
-dHASH3 = dHash('D:\\Github\\PreprocessedData\\data\\test03.png', size_height)
-dHASH4 = dHash('D:\\Github\\PreprocessedData\\data\\_2000_sampled_12_6.png', size_height)
+for size_height in size_height_arr:
+    pHASH1 = pHash(img_path + txt_name + "raw.png", size_height)
+    pHASH2 = pHash(img_path + txt_name + "LTTB.png", size_height)
+    pHASH3 = pHash(img_path + txt_name + "avg.png", size_height)
+    pHASH4 = pHash(img_path + txt_name + "max.png", size_height)
+    pHASH5 = pHash(img_path + txt_name + "min.png", size_height)
+    pHASH6 = pHash(img_path + txt_name + "mid.png", size_height)
 
-p_D_1 = hammingDist(pHASH1, pHASH2)
-p_D_2 = hammingDist(pHASH1, pHASH3)
-p_D_3 = hammingDist(pHASH1, pHASH4)
-d_D_1 = hammingDist(dHASH1, dHASH2)
-d_D_2 = hammingDist(dHASH1, dHASH3)
-d_D_3 = hammingDist(dHASH1, dHASH4)
+    dHASH1 = dHash(img_path + txt_name + "raw.png", size_height)
+    dHASH2 = dHash(img_path + txt_name + "LTTB.png", size_height)
+    dHASH3 = dHash(img_path + txt_name + "avg.png", size_height)
+    dHASH4 = dHash(img_path + txt_name + "max.png", size_height)
+    dHASH5 = dHash(img_path + txt_name + "min.png", size_height)
+    dHASH6 = dHash(img_path + txt_name + "mid.png", size_height)
 
-p_out_score_1 = 1 - p_D_1 * 1. / (size_height * size_height / 4)
-p_out_score_2 = 1 - p_D_2 * 1. / (size_height * size_height / 4)
-p_out_score_3 = 1 - p_D_3 * 1. / (size_height * size_height / 4)
+    p_D_1 = hammingDist(pHASH1, pHASH2)
+    p_D_2 = hammingDist(pHASH1, pHASH3)
+    p_D_3 = hammingDist(pHASH1, pHASH4)
+    p_D_4 = hammingDist(pHASH1, pHASH5)
+    p_D_5 = hammingDist(pHASH1, pHASH6)
+    d_D_1 = hammingDist(dHASH1, dHASH2)
+    d_D_2 = hammingDist(dHASH1, dHASH3)
+    d_D_3 = hammingDist(dHASH1, dHASH4)
 
-d_out_score_1 = 1 - d_D_1 * 1. / (size_height * size_height / 4)
-d_out_score_2 = 1 - d_D_2 * 1. / (size_height * size_height / 4)
-d_out_score_3 = 1 - d_D_3 * 1. / (size_height * size_height / 4)
+    p_out_score_1 = 1 - p_D_1 * 1. / (size_height * size_height / 4)
+    p_out_score_2 = 1 - p_D_2 * 1. / (size_height * size_height / 4)
+    p_out_score_3 = 1 - p_D_3 * 1. / (size_height * size_height / 4)
 
+    d_out_score_1 = 1 - d_D_1 * 1. / (size_height * size_height / 4)
+    d_out_score_2 = 1 - d_D_2 * 1. / (size_height * size_height / 4)
+    d_out_score_3 = 1 - d_D_3 * 1. / (size_height * size_height / 4)
 
-print(p_out_score_1, p_out_score_2, p_out_score_3, '||', p_D_1, p_D_2, p_D_3)
-print(d_out_score_1, d_out_score_2, d_out_score_3, '||', d_D_1, d_D_2, d_D_3)
+    print(p_out_score_1, p_out_score_2, p_out_score_3, '||', p_D_1, p_D_2, p_D_3)
+    print(d_out_score_1, d_out_score_2, d_out_score_3, '||', d_D_1, d_D_2, d_D_3)
+
+    y_value[0].append(p_D_1)
+    y_value[1].append(p_D_2)
+    y_value[2].append(p_D_3)
+    y_value[3].append(p_D_4)
+    y_value[4].append(p_D_5)
+
+plt.plot(size_height_arr, y_value[0], label="LTTB", linewidth=0.5, marker="x", linestyle="-")
+plt.plot(size_height_arr, y_value[1], label="avg", linewidth=0.5, linestyle="-")
+plt.plot(size_height_arr, y_value[2], label="max", linewidth=0.5, marker="x", linestyle="--")
+plt.plot(size_height_arr, y_value[3], label="min", linewidth=0.5, linestyle="--")
+plt.plot(size_height_arr, y_value[4], label="mid", linewidth=0.5, marker="*", linestyle="-")
+
+plt.legend(loc='upper left')
+plt.title("relationship table about size of compression picture and pHash Hamming distance ")
+plt.xlabel("size of image")
+plt.xticks(size_height_arr, [r'32*32', r'128*128', r'256*256', r'512*512', r'1024*1024'])
+plt.ylabel("pHash Hamming distance")
+# plt.yticks(np.linspace(1, 10, 5))
+plt.savefig(save_img_path, dpi=1200)
+plt.show()

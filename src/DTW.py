@@ -3,7 +3,7 @@ import similaritymeasures
 import matplotlib.pyplot as plt
 import sys
 # from lttb import lttb
-sys.setrecursionlimit(10000)
+sys.setrecursionlimit(10000000)
 
 
 X_1 = np.linspace(0, 500, 30, endpoint=True)
@@ -25,8 +25,8 @@ num_data = np.zeros((20, 2))
 num_data[:, 0] = X_2
 num_data[:, 1] = S
 
-exp_data = np.array([range(1000), np.random.random(1000)]).T
-num_data = np.array([range(1000), np.random.random(1000)]).T
+exp_data = np.array([range(3600), np.random.random(3600)]).T
+num_data = np.array([range(300), np.random.random(300)]).T
 
 
 # quantify the difference between the two curves using PCM
@@ -38,7 +38,7 @@ df = similaritymeasures.frechet_dist(exp_data, num_data)
 
 # quantify the difference between the two curves using
 # area between two curves
-area = similaritymeasures.area_between_two_curves(exp_data, num_data)
+# area = similaritymeasures.area_between_two_curves(exp_data, num_data)
 
 # quantify the difference between the two curves using
 # Curve Length based similarity measure
@@ -46,11 +46,11 @@ area = similaritymeasures.area_between_two_curves(exp_data, num_data)
 
 # quantify the difference between the two curves using
 # Dynamic Time Warping distance
-dtw, d = similaritymeasures.dtw(exp_data, num_data)
+# dtw, d = similaritymeasures.dtw(exp_data, num_data)
 
 # print the results
 # print(pcm, df, area, cl, dtw)
-print(area, dtw)
+print(df)
 
 # plot the data
 # plt.figure()
@@ -59,10 +59,10 @@ print(area, dtw)
 # plt.show()
 
 
-plt.figure()
-plt.plot(range(0, len(exp_data)), exp_data[:, 1], label="exp_data", color='r', linewidth=2)
-plt.plot(range(0, len(num_data)), num_data[:, 1], label='num_data', color='g', linewidth=2)
-# plt.plot(range(0, len(dwell)), dwell, label='dwell', color='b', linewidth=2)
-plt.legend(loc='upper left')
-plt.title("plot test")
-plt.show()
+# plt.figure()
+# plt.plot(range(0, len(exp_data)), exp_data[:, 1], label="exp_data", color='r', linewidth=2)
+# plt.plot(range(0, len(num_data)), num_data[:, 1], label='num_data', color='g', linewidth=2)
+# # plt.plot(range(0, len(dwell)), dwell, label='dwell', color='b', linewidth=2)
+# plt.legend(loc='upper left')
+# plt.title("plot test")
+# plt.show()

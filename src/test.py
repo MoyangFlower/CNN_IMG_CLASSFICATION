@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import cv2
 from PIL import Image
 
-data_file = "D:\\Github\\PreprocessedData\\data\\040013411201.txt"
+# data_file = "D:\\Github\\PreprocessedData\\data\\040013411201.txt"
 #
 # dataarr = np.loadtxt(data_file, str, comments=',')
 #
