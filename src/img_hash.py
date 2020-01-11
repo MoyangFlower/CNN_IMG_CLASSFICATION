@@ -89,11 +89,13 @@ def __difference(image, size_height):
 size_height_arr = [32, 128, 256, 512, 1024]
 size_W = 12
 size_H = 4
-img_path = "D:\\Github\\PreprocessedData\\paper_img_1\\"
-save_img_path = "D:\\Github\\PreprocessedData\\paper_img_1\\distance.png"
+img_path = "D:\\Github\\PreprocessedData\\paper img\\"
+save_img_path = "D:\\Github\\PreprocessedData\\paper_img_2\\distance.png"
 txt_path = "D:\\Github\\PreprocessedData\\down-sampling data\\3414.txt"
 txt_name = txt_path.split("\\")[-1].replace(".txt", "")
 plt.figure(figsize(size_W, size_H))  # 按照指定比例生成图
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
 y_value = [[] for _ in range(5)]
 
 for size_height in size_height_arr:
@@ -137,17 +139,17 @@ for size_height in size_height_arr:
     y_value[3].append(p_D_4)
     y_value[4].append(p_D_5)
 
-plt.plot(size_height_arr, y_value[0], label="LTTB", linewidth=0.5, marker="x", linestyle="-")
-plt.plot(size_height_arr, y_value[1], label="avg", linewidth=0.5, linestyle="-")
-plt.plot(size_height_arr, y_value[2], label="max", linewidth=0.5, marker="x", linestyle="--")
-plt.plot(size_height_arr, y_value[3], label="min", linewidth=0.5, linestyle="--")
-plt.plot(size_height_arr, y_value[4], label="mid", linewidth=0.5, marker="*", linestyle="-")
+plt.plot(size_height_arr, y_value[0], label="LTTB", linewidth=0.5, marker="x", linestyle="-", color="black")
+plt.plot(size_height_arr, y_value[1], label="avg", linewidth=0.5, marker="*", linestyle="-", color="black")
+plt.plot(size_height_arr, y_value[2], label="max", linewidth=0.5, marker="3", linestyle="-", color="black")
+plt.plot(size_height_arr, y_value[3], label="min", linewidth=0.5, marker="2", linestyle="-", color="black")
+plt.plot(size_height_arr, y_value[4], label="mid", linewidth=0.5, marker="1", linestyle="-", color="black")
 
 plt.legend(loc='upper left')
-plt.title("relationship table about size of compression picture and pHash Hamming distance ")
-plt.xlabel("size of image")
+# plt.title("relationship table about size of compression picture and pHash Hamming distance ")
+plt.xlabel("图像尺寸")
 plt.xticks(size_height_arr, [r'32*32', r'128*128', r'256*256', r'512*512', r'1024*1024'])
-plt.ylabel("pHash Hamming distance")
+plt.ylabel("pHash 海明距离")
 # plt.yticks(np.linspace(1, 10, 5))
-plt.savefig(save_img_path, dpi=1200)
+plt.savefig(save_img_path, dpi=800)
 plt.show()

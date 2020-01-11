@@ -232,7 +232,7 @@ if __name__ == '__main__':
     sample_rate = 0.1
     time_y1 = []
     time_y2 = []
-    save_img_path = "D:\\Github\\PreprocessedData\\paper img\\time-consuming.png"
+    save_img_path = "D:\\Github\\PreprocessedData\\paper_img_2\\time-consuming.png"
     for num_point in num_point_arr:
         with open("D:\\Github\\PreprocessedData\\down-sampling data\\3414.txt") as f:
             lines = f.readlines()
@@ -269,13 +269,15 @@ if __name__ == '__main__':
         # time_y2.append(y2_t)
 
     plt.figure(figsize(size_W, size_H))
-    plt.plot(num_point_arr, time_y1, label="LTTB/avg", linewidth=0.5, marker="x", linestyle="-")
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.plot(num_point_arr, time_y1, label="LTTB/avg", linewidth=0.5, marker="x", linestyle="-", color="black")
     # plt.plot(num_point_arr, time_y2, label="avg", linewidth=0.5, linestyle="-")
     plt.legend(loc='upper left')
-    plt.title("Time-consuming times graph of LTTB and avg downsampling with data volume growth")
-    plt.xlabel("number of raw point")
+    # plt.title("Time-consuming times graph of LTTB and avg downsampling with data volume growth")
+    plt.xlabel("数据点的个数")
     plt.xticks(num_point_arr, [r'500', r'10000', r'50000', r'100000', r'200000'])
-    plt.ylabel("times")
+    plt.ylabel("耗时倍数")
     plt.yticks(np.linspace(1, 10, 5))
-    plt.savefig(save_img_path, dpi=1200)
+    plt.savefig(save_img_path, dpi=800)
     plt.show()

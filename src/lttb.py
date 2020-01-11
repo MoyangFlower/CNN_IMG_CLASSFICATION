@@ -184,9 +184,10 @@ def downsampled(algorithm, data, n_out):
 
 if __name__ == "__main__":
 
-    txt_path = "D:\\Github\\PreprocessedData\\down-sampling data\\3414.txt"
+    item = "3414"
+    txt_path = "D:\\Github\\PreprocessedData\\down-sampling data\\%s.txt" % item
     sample_img_path = "D:\\Github\\PreprocessedData\\down-sampling img\\"
-    img_path = "D:\\Github\\PreprocessedData\\paper_img_1\\"
+    img_path = "D:\\Github\\PreprocessedData\\paper_img_3\\"
     Y = []
     X = []
     # 6 * 4
@@ -205,15 +206,15 @@ if __name__ == "__main__":
         size_H = 6
         dpi = 800
         save_flag = True
-    num_point = 3600
-    sample_rate = 0.03
+    num_point = 200000
+    sample_rate = 0.1
     min_y = -1000
     max_y = 1000
     ticks = 5
     X_index = 0
     temp = ''
     txt_name = txt_path.split("\\")[-1].replace(".txt", "")
-    save_img_path = img_path + '_%s_%s_sampled_%s_%s.png' % (str(num_point), str(sample_rate), str(size_W), str(size_H))
+    save_img_path = img_path + '%s_%s_%s_sampled_%s_%s.png' % (item, str(num_point), str(sample_rate), str(size_W), str(size_H))
     with open(txt_path) as f:
         lines = f.readlines()
         lines.sort()
@@ -279,26 +280,26 @@ if __name__ == "__main__":
         # plt.show()
 
         # Discrete Frechet distance
-        print("calculate Discrete Frechet distance...")
-        df_lttb = similaritymeasures.frechet_dist(lttb_sample, raw_data)
-        df_avg = similaritymeasures.frechet_dist(avg_sample, raw_data)
-        df_max = similaritymeasures.frechet_dist(max_sample, raw_data)
-        df_min = similaritymeasures.frechet_dist(min_sample, raw_data)
-        df_mid = similaritymeasures.frechet_dist(mid_sample, raw_data)
-        print("df_lttb_sampled:%4.0f\n df_avg_sampled:%4.0f\n df_max_sampled:%4.0f\n "
-              "df_min_sampled:%4.0f\n df_mid_sampled:%4.0f\n"
-              % (df_lttb, df_avg, df_max, df_min, df_mid))
-
-        # 快速dtw，euclidean欧氏距离
-        print("calculate dwt distance...")
-        dtw_lttb, path = fastdtw(lttb_sample, raw_data, dist=euclidean)
-        dtw_avg, path1 = fastdtw(avg_sample, raw_data, dist=euclidean)
-        dtw_max, path2 = fastdtw(max_sample, raw_data, dist=euclidean)
-        dtw_min, path3 = fastdtw(min_sample, raw_data, dist=euclidean)
-        dtw_mid, path4 = fastdtw(mid_sample, raw_data, dist=euclidean)
-        print("dtw_lttb_sampled:%4.0f\n dtw_avg_sampled:%4.0f\n dtw_max_sampled:%4.0f\n "
-              "dtw_min_sampled:%4.0f\n dtw_mid_sampled:%4.0f\n"
-              % (dtw_lttb, dtw_avg, dtw_max, dtw_min, dtw_mid))
+        # print("calculate Discrete Frechet distance...")
+        # df_lttb = similaritymeasures.frechet_dist(lttb_sample, raw_data)
+        # df_avg = similaritymeasures.frechet_dist(avg_sample, raw_data)
+        # df_max = similaritymeasures.frechet_dist(max_sample, raw_data)
+        # df_min = similaritymeasures.frechet_dist(min_sample, raw_data)
+        # df_mid = similaritymeasures.frechet_dist(mid_sample, raw_data)
+        # print("df_lttb_sampled:%4.0f\n df_avg_sampled:%4.0f\n df_max_sampled:%4.0f\n "
+        #       "df_min_sampled:%4.0f\n df_mid_sampled:%4.0f\n"
+        #       % (df_lttb, df_avg, df_max, df_min, df_mid))
+        #
+        # # 快速dtw，euclidean欧氏距离
+        # print("calculate dwt distance...")
+        # dtw_lttb, path = fastdtw(lttb_sample, raw_data, dist=euclidean)
+        # dtw_avg, path1 = fastdtw(avg_sample, raw_data, dist=euclidean)
+        # dtw_max, path2 = fastdtw(max_sample, raw_data, dist=euclidean)
+        # dtw_min, path3 = fastdtw(min_sample, raw_data, dist=euclidean)
+        # dtw_mid, path4 = fastdtw(mid_sample, raw_data, dist=euclidean)
+        # print("dtw_lttb_sampled:%4.0f\n dtw_avg_sampled:%4.0f\n dtw_max_sampled:%4.0f\n "
+        #       "dtw_min_sampled:%4.0f\n dtw_mid_sampled:%4.0f\n"
+        #       % (dtw_lttb, dtw_avg, dtw_max, dtw_min, dtw_mid))
 
         # hamming distance距离
         print("calculate hamming distance...")
@@ -342,6 +343,8 @@ if __name__ == "__main__":
         # y_value[4].append(p_D_1_6)
 
     plt.figure(figsize(size_W, size_H))  # 按照指定比例生成图
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.rcParams['axes.unicode_minus'] = False
 
     if plot_complete_flag == 1:
         plt.subplot(3, 1, 1)
@@ -417,12 +420,12 @@ if __name__ == "__main__":
             # plt.ylabel("value")
             plt.xlabel(xlable)
 
-        plot_save_multi(2, 3, 1, raw_data, 'r', "raw_data", "(a)")
-        plot_save_multi(2, 3, 2, lttb_sample, 'blue', "lttb_sample", "(b)")
-        plot_save_multi(2, 3, 3, avg_sample, 'black', "avg_sample", "(c)")
-        plot_save_multi(2, 3, 4, max_sample, 'black', "max_sample", "(d)")
-        plot_save_multi(2, 3, 5, min_sample, 'black', "min_sample", "(e)")
-        plot_save_multi(2, 3, 6, mid_sample, 'black', "mid_sample", "(f)")
+        plot_save_multi(2, 3, 1, raw_data, 'black', "", "(a) 原始折线图")
+        plot_save_multi(2, 3, 2, lttb_sample, 'black', "", "(b) LTTB算法降采样后折线图")
+        plot_save_multi(2, 3, 3, avg_sample, 'black', "", "(c) 均值算法降采样后折线图")
+        plot_save_multi(2, 3, 4, max_sample, 'black', "", "(d)最大值算法降采样后折线图")
+        plot_save_multi(2, 3, 5, min_sample, 'black', "", "(e)最小值算法降采样后折线图")
+        plot_save_multi(2, 3, 6, mid_sample, 'black', "", "(f)中位数算法降采样后折线图")
 
         if save_flag:
             plt.savefig(save_img_path, dpi=dpi)
